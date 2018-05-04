@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+    //function to subscribe to the observable
     private fun callObservable() {
 
         observable
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                     override fun onComplete() {
 
-
+                        //show snackbar on completion
                         val snackbar = Snackbar
                                 .make(findViewById<View>(R.id.activity_main) as LinearLayout, "Contacts csv created at path" + file!!.path, Snackbar.LENGTH_LONG)
                         snackbar.show()
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 })
 
     }
-
+    //Make API call using retrofit and rxjava2 and load the data into mArrayList
     private fun loadJSON() {
 
         val requestInterface : RequestInterface = Retrofit.Builder()
@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Log.e("Error ", e.localizedMessage)
 
             }
-
+            //set the adapter when the data is loaded
             override fun onComplete() {
                 adapter = WorldPopulationAdapter(mArrayList)
                 mRecyclerView!!.adapter = adapter
@@ -219,11 +219,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-
+    //this function triggers on click of the button to fetch contacts
     override fun onClick(v: View) {
         when (v.id) {
             R.id.buttonFetchContats ->
-
+                //request user permission for reading contacts
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_READ_CONTACTS)
                 } else {
@@ -231,7 +231,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
         }
     }
-
+    //this function creates a csv file and stores the contact details to it
     fun writeCsv(list: ArrayList<ContactDetails>) {
 
         file = File(this.getExternalFilesDir(null), "contacts.csv")
@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
     }
-
+    //this function creates a zip file containing the csv file of contacts.
     fun zip(file: File?) {
         try {
 

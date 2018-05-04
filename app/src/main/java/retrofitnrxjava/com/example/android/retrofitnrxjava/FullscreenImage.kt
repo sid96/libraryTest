@@ -20,7 +20,7 @@ class FullscreenImage : AppCompatActivity() {
         val url = intent.extras!!.getString("url")
 
         imageView = findViewById<View>(R.id.fullImage) as ImageView?
-
+//using glide to load the image into imageView
         Glide.with(this).load(url).into(imageView!!)
 
     }
